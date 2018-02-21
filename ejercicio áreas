@@ -58,5 +58,5 @@ public class Figura {
                     break;
             }
         }while(opc!=0);
-    }    
+    }   //Nota: Crear el Constructor y reducir!!! 
 }
