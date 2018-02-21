@@ -1,0 +1,44 @@
+package taller;
+
+public class Cuenta {
+	int saldo;
+	Cuenta  ( int  s ) {
+		saldo = s;
+	}
+	
+	int monto ( )  {
+		return  saldo;
+	}
+	
+	int retiro ( int r ) {
+		if ( (saldo - r)  >= 0 ) {	
+			saldo = saldo - r ;
+			System.out.println("Retiro realizado Correctamente");
+			return 1;
+			
+		}else {
+			System.out.println("Fondos Insuficientes");
+		return -1;
+		}
+	}
+	
+	void consignar ( int c ) {
+		saldo += c;
+	}
+
+	
+	public static void main(String[] args) {	
+	       	Cuenta a = new Cuenta(100000);
+	       	Cuenta b = new Cuenta(100000);
+			int saldo_acta;
+			int saldo_actb;
+		    a.retiro (80000);
+		    b.consignar (350000);
+		    a.consignar(80000);
+		    saldo_acta = a.monto();
+		    saldo_actb = b.monto();
+		    System.out.println(  "Saldo de Cuenta A Despues de Transacciones: " +saldo_acta );
+		    System.out.println(  "Saldo de Cuenta B Despues de Transacciones: " +saldo_actb );
+		    
+	}
+}
