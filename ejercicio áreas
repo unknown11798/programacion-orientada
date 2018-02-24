@@ -1,62 +1,77 @@
-package figura;
 import java.util.Scanner;
 public class Figura {
-    static double base1,base2,altura,radio,pi=3.141592654,resultado;
-    static int opc;
-    static Scanner leer=new Scanner(System.in);
-    public static void rectangulo(){
-        System.out.println("Ingrese valor para la base:");
-        base1=leer.nextDouble();
-        System.out.println("Ingrese valor para la altura:");
-        altura=leer.nextDouble();
-        resultado=base1*altura;
-        System.out.println("El resultado de la operación es: "+resultado);
+    double base;
+    double base2;
+    double altura;
+    double radio;
+    double pi=3.141592654;
+    double resultado;
+    public Figura(double b,double b2,double a,double r){
+        base=b;
+        base2=b2;
+        altura=a;
+        radio=r;
     }
-    public static void triangulo(){
-        System.out.println("Ingrese valor para la base:");
-        base1=leer.nextDouble();
-        System.out.println("Ingrese valor para la altura:");
-        altura=leer.nextDouble();
-        resultado=(base1*altura)/2;
-        System.out.println("El resultado de la operación es: "+resultado);
+    public void rectangulo(){
+        resultado=base*altura;
+        System.out.println("El resultado es: "+resultado);
     }
-    public static void circulo(){
-        System.out.println("Ingrese valor para el radio:");
-        radio=leer.nextDouble();
+    public void triangulo(){
+        resultado=(base*altura)/2;
+        System.out.println("El resultado es: "+resultado);
+    }
+    public void circulo(){
         resultado=pi*(radio*radio);
-        System.out.println("El resultado de la operación es: "+resultado);
+        System.out.println("El resultado es: "+resultado);
     }
-    public static void trapecio(){
-        System.out.println("Ingrese valor para la base mayor:");
-        base1=leer.nextDouble();
-        System.out.println("Ingrese valor para la base menor:");
-        base2=leer.nextDouble();
-        System.out.println("Ingrese valor para la altura:");
-        altura=leer.nextDouble();
-        resultado=((base1+base2)*altura)/2;
-        System.out.println("El resultado de la operación es: "+resultado);
+    public void trapecio(){
+        resultado=(base+base2)*altura;
+        System.out.println("El resultado es: "+resultado);
     }
-    public static void main(String[] args) {
-        System.out.println("Bienvenido\n1.Calcular área de un Círculo\n2."
-        + "Calcular área de un Rectángulo\n3.Calcular área de un Triángulo\n4."
-        + "Calcular área de un Trapecio\n0.Salir");
+    public static void main(String[]args){
+        Scanner leer=new Scanner(System.in); 
+        int opc;
+        double b=0,b2=0,a=0,r=0;
         do{
-            System.out.println("Ingrese una opción:");
-            opc=leer.nextInt();
-            switch(opc){
-                case 1:
-                    circulo();
-                    break;
-                case 2:
-                    rectangulo();
-                    break;
-                case 3:
-                    triangulo();
-                    break;
-                case 4:
-                    trapecio();
-                    break;
+        System.out.println("Bienvenido\n1.Calcular área de un Rectángulo\n"
+        + "2.Calcular área de un Triángulo\n3.Calcular área de un Trapecio\n"
+        + "4.Calcular área de un Círculo\nIngrese otro número para Salir");
+        opc=leer.nextInt();
+        if(opc==1||opc==2){
+            System.out.println("Ingrese valor para la base:");
+            b=leer.nextDouble();
+            System.out.println("Ingrese valor para la altura:");
+            a=leer.nextDouble();
+        }else{
+            if(opc==3){
+                System.out.println("Ingrese valor para la primera base:");
+                b=leer.nextDouble();
+                System.out.println("Ingrese valor para la segunda base:");
+                b2=leer.nextDouble();
+                System.out.println("Ingrese valor para la altura:");
+                a=leer.nextDouble();
+            }else{
+                if(opc==4){
+                    System.out.println("Ingrese valor para el radio:");
+                    r=leer.nextDouble();
+                }
             }
-        }while(opc!=0);
-    }   //Nota: Crear el Constructor y reducir!!! 
+        }
+        Figura f=new Figura(b,b2,a,r);
+            switch(opc){
+            case 1:
+                f.rectangulo();
+                break;
+            case 2:
+                f.triangulo();
+                break;
+            case 3:
+                f.trapecio();
+                break;
+            case 4:
+                f.circulo();
+                break;
+            }
+        }while(opc>0&&opc<=4);
+    }
 }
