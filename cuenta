@@ -1,13 +1,17 @@
 package taller;
-
 public class Cuenta {
 	int saldo;
-	Cuenta  ( int  s ) {
+	int canje;
+	Cuenta  ( int  s) {
 		saldo = s;
+		canje=0;
 	}
-	
-	int monto ( )  {
-		return  saldo;
+	Cuenta(){
+		saldo = 0;
+	}
+	void monto ( )  {
+		System.out.println("Saldo en efectivo :"+saldo);
+		System.out.println("Saldo en Canje :"+canje);
 	}
 	
 	int retiro ( int r ) {
@@ -20,25 +24,24 @@ public class Cuenta {
 			System.out.println("Fondos Insuficientes");
 		return -1;
 		}
+	}	
+	void consignar(int c,boolean tipo) {
+		if(tipo==true) {
+			saldo+=c;
+		}else {
+			canje+=c;
+		}
 	}
-	
-	void consignar ( int c ) {
-		saldo += c;
+	void canjeTerminado() {
+		saldo+=canje;
+		canje=0;
 	}
-
-	
 	public static void main(String[] args) {	
-	       	Cuenta a = new Cuenta(100000);
-	       	Cuenta b = new Cuenta(100000);
-			int saldo_acta;
-			int saldo_actb;
-		    a.retiro (80000);
-		    b.consignar (350000);
-		    a.consignar(80000);
-		    saldo_acta = a.monto();
-		    saldo_actb = b.monto();
-		    System.out.println(  "Saldo de Cuenta A Despues de Transacciones: " +saldo_acta );
-		    System.out.println(  "Saldo de Cuenta B Despues de Transacciones: " +saldo_actb );
-		    
+	    Cuenta a = new Cuenta(100000);
+	    Cuenta b = new Cuenta();
+		b.consignar(200000, false);
+		b.canjeTerminado();
+		System.out.println(  "Saldo de Cuenta B Despues de Transacciones: ");
+		b.monto();
 	}
 }
