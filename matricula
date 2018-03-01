@@ -1,0 +1,127 @@
+import java.util.Scanner;
+public class Alumno {
+    String nombre,barrio;
+    int edad,identificacion,grado,especialidad,valorMatricula,espPrecio=0,total;
+    public Alumno(int e,int id,int gr,String n,String b){
+        edad=e;
+        identificacion=id;
+        grado=gr;
+        nombre=n;
+        barrio=b;
+        System.out.println("Inscripción realizada con éxito");
+    }
+    public Alumno(int e,int id,int gr,String n,String b,int esp){
+        edad=e;
+        identificacion=id;
+        grado=gr;
+        nombre=n;
+        barrio=b;
+        especialidad=esp;
+    }
+    public void imprimir_grado(){
+        System.out.println("Datos del Alumno:");
+        System.out.println("Nombre: "+nombre);
+        System.out.println("Edad: "+edad);
+        System.out.println("Grado: "+grado);
+        System.out.println("ID: "+identificacion);
+        System.out.println("Barrio: "+barrio);
+    }
+    public void imprimir_grado(int esp){
+        System.out.println("Datos del Alumno:");
+        System.out.println("Nombre: "+nombre);
+        System.out.println("Edad: "+edad);
+        System.out.println("Grado: "+grado);
+        System.out.println("ID: "+identificacion);
+        System.out.println("Barrio: "+barrio);
+        switch(especialidad){
+            case 1:
+                System.out.println("Especialidad: Idiomas");
+                break;
+            case 2:
+                System.out.println("Especialidad: Electricidad");
+                break;
+            case 3:
+                System.out.println("Especialidad: Sistemas");
+                break;
+            case 4:
+                System.out.println("Especialidad: Pedagogía");
+                break;
+        }       
+    }
+    public void calcular_pago(){
+        valorMatricula=650000;
+        System.out.println("Costo de la Matrícula: "+valorMatricula);
+    }
+    public void calcular_pago(int esp){
+        switch(especialidad){
+            case 1:
+                espPrecio=500000;
+                break;
+            case 2:
+                espPrecio=350000;
+                break;
+            case 3:
+                espPrecio=520000;
+                break;
+            case 4:
+                espPrecio=400000;
+                break;
+        }
+        if(grado>8){
+            valorMatricula=720000;
+            if(grado==11){
+                valorMatricula=800000;
+                int derechosGrado=580000;
+                valorMatricula=valorMatricula+derechosGrado;
+            }
+        }else{
+            valorMatricula=700000;
+        }
+        total=valorMatricula+espPrecio;
+        System.out.println("Costo de la Matrícula: "+total);
+    }
+    public void main(String[]args){
+        Alumno al;
+        String n,b;
+        int e,gr=0,id,cont=0,opc,esp=0;
+        Scanner a1=new Scanner(System.in);    
+        do{
+            System.out.println("Bienvenido:\n1.Inscribir Alumno\n2.Mostrar "
+                    + "datos del Alumno\nConsultar precio de Matrícula\n0."
+                    + "Salir\nSe permite un máximo de 4 estudiantes");
+            opc=a1.nextInt();
+            switch(opc){
+                case 1:
+                    n=a1.nextLine();
+                    e=a1.nextInt();
+                    gr=a1.nextInt();
+                    id=a1.nextInt();
+                    b=a1.nextLine();
+                    if(gr>5){
+                        System.out.println("Tabla de especialidades:\n1.Idiomas"
+                                + "\n2.Electricidad\n3.Sistemas\n4.Pedagogía");
+                        esp=a1.nextInt();
+                        al=new Alumno(e,id,gr,n,b,esp);
+                    }else{
+                        al=new Alumno(e,id,gr,n,b);
+                    }
+                    break;
+                case 2:
+                    if(gr>5){
+                        imprimir_grado(esp);
+                    }else{
+                        imprimir_grado();
+                    }
+                    break;
+                case 3:
+                    if(gr>5){
+                        calcular_pago(esp);
+                    }else{
+                        calcular_pago();
+                    }
+                    break;
+            }
+            cont++;
+        }while(cont>4||opc!=0);
+    }
+}
