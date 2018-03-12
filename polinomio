@@ -1,0 +1,208 @@
+package taller;
+import java.util.Scanner;
+public class polinomio {
+    int coeficiente1,coeficiente2,coeficiente3,coeficiente4,coeficiente5;
+    public polinomio(){
+        coeficiente1=0;
+        coeficiente2=0;
+        coeficiente3=0;
+        coeficiente4=0;
+        coeficiente5=0;
+    }
+    public void imprimir(){
+        String pol="";
+        if(coeficiente1!=0)
+            pol=pol+String.valueOf(coeficiente1)+"x^4+";
+        if(coeficiente2!=0)
+            pol=pol+String.valueOf(coeficiente2)+"x^3+";
+        if(coeficiente3!=0)
+            pol=pol+String.valueOf(coeficiente3)+"x^2+";
+        if(coeficiente4!=0){
+            if(coeficiente4==1){
+                pol=pol+"x";
+            }else{
+                if(coeficiente5==0){
+                    pol=pol+String.valueOf(coeficiente4)+"x";
+                }else{
+                    pol=pol+String.valueOf(coeficiente4)+"x+";
+                }
+            }
+        }
+        if(coeficiente5!=0)
+            pol=pol+String.valueOf(coeficiente5);
+        if(pol==""){
+            System.out.println("El Polinomio es nulo");
+        }else{
+            System.out.println(pol);
+        }
+    }
+    public void guardar(int c1,int c2,int c3,int c4,int c5){
+        coeficiente1=c1;
+        coeficiente2=c2;
+        coeficiente3=c3;
+        coeficiente4=c4;
+        coeficiente5=c5;
+    }
+    public void informarCoeficiente(int exp){
+        switch(exp){
+            case 1:
+                System.out.println("El coeficiente del término de grado "+exp+" es: "+coeficiente1);
+                break;
+            case 2:
+                System.out.println("El coeficiente del término de grado "+exp+" es: "+coeficiente2);
+                break;
+            case 3:
+                System.out.println("El coeficiente del término de grado "+exp+" es: "+coeficiente3);
+                break;
+            case 4:
+                System.out.println("El coeficiente del término de grado "+exp+" es: "+coeficiente4);
+                break;
+            case 5:
+                System.out.println("El coeficiente del término de grado "+exp+" es: "+coeficiente5);
+                break;
+        }
+    }
+    public static void suma(polinomio x,polinomio y){
+        int a1,a2,a3,a4,a5;
+        a1=x.coeficiente1+y.coeficiente1;
+        a2=x.coeficiente2+y.coeficiente2;
+        a3=x.coeficiente3+y.coeficiente3;
+        a4=x.coeficiente4+y.coeficiente4;
+        a5=x.coeficiente5+y.coeficiente5;
+        polinomio z=new polinomio();
+        z.guardar(a1, a2, a3, a4, a5);
+        z.imprimir();
+    }
+    public static void resta(polinomio x,polinomio y){
+        int a1,a2,a3,a4,a5;
+        a1=x.coeficiente1-y.coeficiente1;
+        a2=x.coeficiente2-y.coeficiente2;
+        a3=x.coeficiente3-y.coeficiente3;
+        a4=x.coeficiente4-y.coeficiente4;
+        a5=x.coeficiente5-y.coeficiente5;
+        polinomio z=new polinomio();
+        z.guardar(a1, a2, a3, a4, a5);
+        z.imprimir();
+    }
+    public int valorPolinomio(int valor){
+        int result=(coeficiente1*(valor^4))+(coeficiente2*(valor^3))+(coeficiente3*(valor^2))+(coeficiente4*valor)+coeficiente5;
+        return result;
+    }
+    public static void sonIguales(polinomio x,polinomio y){
+        if(x.coeficiente1==y.coeficiente1){
+            if(x.coeficiente2==y.coeficiente2){
+                if(x.coeficiente3==y.coeficiente3){
+                    if(x.coeficiente4==y.coeficiente4){
+                        if(x.coeficiente5==y.coeficiente5){
+                            System.out.println("Los Polinomios son iguales");
+                        }else{
+                            System.out.println("Los Polinomios no son iguales");
+                        }
+                    }else{
+                        System.out.println("Los Polinomios no son iguales");
+                    }
+                }else{
+                    System.out.println("Los Polinomios no son iguales");
+                }
+            }else{
+                System.out.println("Los Polinomios no son iguales");
+            }
+        }else{
+            System.out.println("Los Polinomios no son iguales");
+        }
+    }
+    public static void main(String[]args){
+        polinomio a=new polinomio();
+        polinomio b=new polinomio();
+        Scanner leer=new Scanner(System.in);
+        int c1,c2,c3,c4,c5,grado,opc=0,valor;
+        do{  
+        System.out.println("");
+        System.out.println("");
+        System.out.println("        Menu        ");
+        System.out.println("1.Leer Polinomio A(x)");
+        System.out.println("2.Leer Polinomio B(x)");
+        System.out.println("3.Imprimir Polinomios A(x) y B(x)");
+        System.out.println("4.Realizar Suma");
+        System.out.println("5.Realizar Resta");
+        System.out.println("6.Valor numérico de A(x)");
+        System.out.println("7.Valor numérico de B(x)");
+        System.out.println("8.¿Son los dos Polinomios Iguales?");
+        System.out.println("9.Consultar Coeficiente en cualquier término de Grado N del Polinomio A");
+        System.out.println("10.Consultar Coeficiente en cualquier término de Grado N del Polinomio B");
+        System.out.println("11.Salir");
+        System.out.println("¿Qué opción desea?");
+        opc=leer.nextInt();
+        switch(opc){
+            case 1:
+                System.out.println("Ingrese coeficiente para el término de exponente 4");
+                c1=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 3");
+                c2=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 2");
+                c3=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 1");
+                c4=leer.nextInt();
+                System.out.println("Ingrese coeficiente sin término");
+                c5=leer.nextInt();
+                a.guardar(c1, c2, c3, c4, c5);
+                break;
+            case 2:
+                System.out.println("Ingrese coeficiente para el término de exponente 4");
+                c1=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 3");
+                c2=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 2");
+                c3=leer.nextInt();
+                System.out.println("Ingrese coeficiente para el término de exponente 1");
+                c4=leer.nextInt();
+                System.out.println("Ingrese coeficiente sin término");
+                c5=leer.nextInt();
+                b.guardar(c1, c2, c3, c4, c5);
+                break;
+            case 3:
+                System.out.println("Polinomio A(x):");
+                a.imprimir();
+                System.out.println("Polinomio B(x):");
+                b.imprimir();
+                break;
+            case 4:
+                System.out.println("Resultado de la suma:");
+                suma(a,b);
+                break;
+            case 5:
+                System.out.println("Resultado de la resta:");
+                suma(a,b);
+                break;
+            case 6:
+                System.out.println("Ingrese valor para x:");
+                valor=leer.nextInt();
+                System.out.println("x="+valor);
+                System.out.println("A(x)="+a.valorPolinomio(valor));
+                break;
+            case 7:
+                System.out.println("Ingrese valor para x:");
+                valor=leer.nextInt();
+                System.out.println("x="+valor);
+                System.out.println("B(x)="+b.valorPolinomio(valor));
+                break;
+            case 8:
+                sonIguales(a, b);
+                break;
+            case 9:
+                System.out.println("Ingrese grado del término a evaluar:");
+                grado=leer.nextInt();
+                a.informarCoeficiente(grado);
+                break;
+            case 10:
+                System.out.println("Ingrese grado del término a evaluar:");
+                grado=leer.nextInt();
+                b.informarCoeficiente(grado);
+                break;
+            case 11:
+                System.out.println("Gracias");
+                break;
+            }
+        }while(opc!=11);
+    }
+}
