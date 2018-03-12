@@ -172,7 +172,7 @@ public class polinomio {
                 break;
             case 5:
                 System.out.println("Resultado de la resta:");
-                suma(a,b);
+                resta(a,b);
                 break;
             case 6:
                 System.out.println("Ingrese valor para x:");
