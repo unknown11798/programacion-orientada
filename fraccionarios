@@ -1,0 +1,123 @@
+import java.util.Scanner;
+public class Racional {
+    int numerador,denominador;
+    public Racional(){
+        numerador=0;
+        denominador=1;
+    }
+    public void asignar(int n,int d){
+        numerador=n;
+        denominador=d;
+    }
+    public void imprimir(){
+        System.out.println(numerador+"/"+denominador);
+    }
+    public static void suma(Racional x,Racional y){
+        Racional resultado=new Racional();
+        if(x.denominador==y.denominador){
+            resultado.numerador=x.numerador+y.numerador;
+            resultado.denominador=x.denominador;
+        }else{
+            resultado.numerador=(x.numerador*y.denominador)+(y.numerador*x.denominador);
+            resultado.denominador=x.denominador*y.denominador;
+        }
+        resultado.simplificar();
+    }
+    public static void resta(Racional x,Racional y){
+        Racional resultado=new Racional();
+        if(x.denominador==y.denominador){
+            resultado.numerador=x.numerador-y.numerador;
+            resultado.denominador=x.denominador;
+        }else{
+            resultado.numerador=(x.numerador*y.denominador)-(y.numerador*x.denominador);
+            resultado.denominador=x.denominador*y.denominador;
+        }
+        resultado.simplificar();
+    }
+    public int mcd(){
+        int u=Math.abs(numerador);
+        int v=Math.abs(denominador);
+        if(v==0)
+            return u;
+        
+        int r;
+        while(v!=0){
+            r=u%v;
+            u=v;
+            v=r;
+        }
+        return u;
+    }
+    public void simplificar(){
+        int dividir=mcd();
+        numerador/=dividir;
+        denominador/=dividir;
+        imprimir();
+    }
+    public static void main(String[] args) {
+        Racional a=new Racional();
+        Racional b=new Racional();
+        int num,den,opc;
+        Scanner leer=new Scanner(System.in);
+        System.out.println("");
+        System.out.println("-----Menu-----");
+        System.out.println("1.Leer Fraccionario A");
+        System.out.println("2.Leer Fraccionario B");
+        System.out.println("3.Imprimir Fraccionarios A y B");
+        System.out.println("4.Sumar A+B");
+        System.out.println("5.Restar B-A");
+        System.out.println("6.Simplificar A");
+        System.out.println("7.Simplificar B");
+        System.out.println("Ingrese otro numro para Salir");
+        do{
+            System.out.println("¿Qué opción desea?");
+            opc=leer.nextInt();
+            switch(opc){
+                case 1:
+                    System.out.println("Ingrese numerador del Fraccionario A");
+                    num=leer.nextInt();
+                    System.out.println("Ingrese denominador del Fraccionario A");
+                    do{
+                        den=leer.nextInt();
+                        if(den<=0)
+                            System.out.println("ERROR: El denominador no puede ser menor o igual a 0");
+                    }while(den<=0);
+                    a.asignar(num, den);
+                    break;
+                case 2:
+                    System.out.println("Ingrese numerador del Fraccionario B");
+                    num=leer.nextInt();
+                    System.out.println("Ingrese denominador del Fraccionario B");
+                    do{
+                        den=leer.nextInt();
+                        if(den<=0)
+                            System.out.println("ERROR: El denominador no puede ser menor o igual a 0");
+                    }while(den<=0);
+                    b.asignar(num, den);
+                    break;
+                case 3:
+                    System.out.println("Fraccionario A:");
+                    a.imprimir();
+                    System.out.println("Fraccionario B:");
+                    b.imprimir();
+                    break;
+                case 4:
+                    System.out.println("Resultado de la Suma A+B");
+                    suma(a,b);
+                    break;
+                case 5:
+                    System.out.println("Resultado de la Resta B-A");
+                    resta(b,a);
+                    break;
+                case 6:
+                    System.out.println("Fraccionario A simplificado:");
+                    a.simplificar();
+                    break;
+                case 7:
+                    System.out.println("Fraccionario B simplificado:");
+                    b.simplificar();
+                    break;
+            }
+        }while(opc>0&&opc<8);
+    }    
+}
