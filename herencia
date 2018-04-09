@@ -1,0 +1,135 @@
+package herencia;
+public class Persona {
+    String nombre;
+    String estCivil;
+    int id;
+    public Persona(String nombre,String estCivil,int id){
+        this.nombre=nombre;
+        this.estCivil=estCivil;
+        this.id=id;
+    }
+    public void setEstCivil(String estCivil){
+        this.estCivil=estCivil;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getEstCivil() {
+        return estCivil;
+    }
+    public int getId() {
+        return id;
+    }
+}
+public class Estudiante extends Persona{
+    String curso;
+    public Estudiante(String nombre, String estCivil, int id) {
+        super(nombre, estCivil, id);
+        this.curso="";
+    }
+    public String getCurso() {
+        return curso;
+    }
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+    public void mostrarEstudiante(){
+        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Curso:"+this.curso);
+    }
+}
+public class Empleado extends Persona{
+    int despacho;
+    public Empleado(String nombre, String estCivil, int id) {
+        super(nombre, estCivil, id);
+        despacho=0;
+    }
+    public int getDespacho() {
+        return despacho;
+    }
+    public void setDespacho(int despacho) {
+        this.despacho = despacho;
+    }
+    public void mostrarEmpleado(){
+        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Despacho #:"+this.despacho);
+    }
+}
+public class Docente extends Persona{
+    String departamento;
+    public Docente(String nombre, String estCivil, int id) {
+        super(nombre, estCivil, id);
+        this.departamento="";
+    }
+    public String getDepartamento() {
+        return departamento;
+    }
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+    public void mostrarEmpleado(){
+        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Departamento:"+this.departamento);
+    }
+}
+import java.util.Scanner;
+public class Imprimir {
+    public static void main(String[] args) {
+        String nom,estCiv,curs,depa,sec;
+        int id,desp;
+        Persona per1;
+        Estudiante est1;
+        Empleado emp1;
+        Docente doc1;
+        PersonalServicio pserv1;
+        Scanner leer=new Scanner(System.in);
+        int opc;
+        do{
+            System.out.println("        Menu        \n"
+                    + "1.Crear una persona externa a la facultad\n"
+                    + "2.Crear un estudiante\n"
+                    + "3.Crear un empleado\n"
+                    + "4.Crear un Profesor\n"
+                    + "5.Cambiar estado civil a persona\n"
+                    + "6.Asignar un nuevo despacho a un empleado\n"
+                    + "7.Matricular un estudiante en un nuevo curso\n"
+                    + "8.Traslado de profesor a otro departamento\n"
+                    + "9.Trasladar de sección a un empleado\n"
+                    + "10. Imprimir la información de todos los "
+                    + "objetos que se hayan creado en el"
+                    +"programa hasta el momento.\n"
+                    + "11.Salir\n");
+            opc=leer.nextInt();
+            switch(opc){
+            case 1:
+                System.out.println("Ingrese nombre");
+                nom=leer.next();
+                System.out.println("Ingrese identificación");
+                id=leer.nextInt();
+                
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                System.out.println("Gracias");
+                break;
+        }
+        }while(opc!=11);
+    }    
+}
