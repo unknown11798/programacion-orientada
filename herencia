@@ -1,24 +1,27 @@
-package herencia;
 public class Persona {
     String nombre;
-    String estCivil;
+    String estadoCivil;
     int id;
     public Persona(String nombre,String estCivil,int id){
+        this.estadoCivil=estCivil;
         this.nombre=nombre;
-        this.estCivil=estCivil;
         this.id=id;
-    }
-    public void setEstCivil(String estCivil){
-        this.estCivil=estCivil;
     }
     public String getNombre() {
         return nombre;
     }
-    public String getEstCivil() {
-        return estCivil;
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
     public int getId() {
         return id;
+    }
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+    public String mostrar(){
+        return "Nombre: "+nombre+"\nEstado Civil: "+estadoCivil+"\n # de "
+                + "Identificación: "+id;
     }
 }
 public class Estudiante extends Persona{
@@ -33,24 +36,9 @@ public class Estudiante extends Persona{
     public void setCurso(String curso) {
         this.curso = curso;
     }
-    public void mostrarEstudiante(){
-        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Curso:"+this.curso);
-    }
-}
-public class Empleado extends Persona{
-    int despacho;
-    public Empleado(String nombre, String estCivil, int id) {
-        super(nombre, estCivil, id);
-        despacho=0;
-    }
-    public int getDespacho() {
-        return despacho;
-    }
-    public void setDespacho(int despacho) {
-        this.despacho = despacho;
-    }
-    public void mostrarEmpleado(){
-        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Despacho #:"+this.despacho);
+    public String mostrar(){
+        return "Nombre: "+nombre+"\nEstado Civil: "+estadoCivil+"\n # de "
+                + "Identificación: "+id+"\nCurso: "+curso;
     }
 }
 public class Docente extends Persona{
@@ -62,74 +50,306 @@ public class Docente extends Persona{
     public String getDepartamento() {
         return departamento;
     }
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
+    public void setDepartamento(int opc) {
+        switch(opc){
+            case 1:
+                this.departamento="Lenguaje";
+                break;
+            case 2:
+                this.departamento="Matemáticas";
+                break;
+            case 3:
+                this.departamento="Arquitectura";
+                break;
+            case 4:
+                this.departamento="Ingeniería";
+                break;
+            case 5:
+                this.departamento="Derecho";
+                break;
+            case 6:
+                this.departamento="Ciencias";
+                break;
+            case 7:
+                this.departamento="Salud";
+                break;
+        }
+        
     }
-    public void mostrarEmpleado(){
-        System.out.println(this.nombre+"\n"+this.id+"\n"+this.estCivil+"\n Departamento:"+this.departamento);
+    public String mostrar(){
+        return "Nombre: "+nombre+"\nEstado Civil: "+estadoCivil+"\n # de "
+                + "Identificación: "+id+"\n Departamento al "
+                + "que pertenece: "+departamento;
+    }
+}
+public class Empleado extends Persona{
+    int fechaIncorporacion,despacho;
+    public Empleado(String nombre, String estCivil, int id) {
+        super(nombre, estCivil, id);
+        this.fechaIncorporacion=0;
+        this.despacho=0;
+    }
+    public int getFechaIncorporacion() {
+        return fechaIncorporacion;
+    }
+    public void setFechaIncorporacion(int fechaIncorporacion) {
+        this.fechaIncorporacion = fechaIncorporacion;
+    }
+    public int getDespacho() {
+        return despacho;
+    }
+    public void setDespacho(int despacho) {
+        this.despacho = despacho;
+    }
+    public String mostrar(){
+        return "Nombre: "+nombre+"\nEstado Civil: "+estadoCivil+"\n # de "
+                + "Identificación: "+id+"\nFecha de Incorporación: "
+                +fechaIncorporacion+"\n# de Despacho: "+despacho;
+    }
+}
+public class PersonalServicios extends Empleado{
+    String seccion;
+    public PersonalServicios(String nombre, String estCivil, int id) {
+        super(nombre, estCivil, id);
+        this.seccion="";
+    }
+    public String getSeccion() {
+        return seccion;
+    }
+    public void setSeccion(int opc) {
+        switch(opc){
+            case 1:
+                this.seccion="Biblioteca";
+                break;
+            case 2:
+                this.seccion="Decanatura";
+                break;
+            case 3:
+                this.seccion="Secretaría";
+                break;
+            case 4:
+                this.seccion="Registro";
+                break;
+            case 5:
+                this.seccion="Cafetería";
+                break;
+        }
+    }
+    public String mostrar(){
+        return "Nombre: "+nombre+"\nEstado Civil: "+estadoCivil+"\n # de "
+                + "Identificación: "+id+"\nFecha de Incorporación: "
+                +fechaIncorporacion+"\n# de Despacho: "+despacho+"\nSección a la que pertenece: "+seccion;
     }
 }
 import java.util.Scanner;
 public class Imprimir {
     public static void main(String[] args) {
-        String nom,estCiv,curs,depa,sec;
-        int id,desp;
-        Persona per1;
-        Estudiante est1;
-        Empleado emp1;
-        Docente doc1;
-        PersonalServicio pserv1;
         Scanner leer=new Scanner(System.in);
-        int opc;
+        String nom,estCiv,cur;
+        Persona per1=null;
+        Empleado emp1=null;
+        Estudiante est1=null;
+        Docente doc1=null;
+        PersonalServicios pserv1=null;
+        int opc1,opc2,opc3,id,desp;
         do{
-            System.out.println("        Menu        \n"
-                    + "1.Crear una persona externa a la facultad\n"
-                    + "2.Crear un estudiante\n"
-                    + "3.Crear un empleado\n"
-                    + "4.Crear un Profesor\n"
-                    + "5.Cambiar estado civil a persona\n"
-                    + "6.Asignar un nuevo despacho a un empleado\n"
-                    + "7.Matricular un estudiante en un nuevo curso\n"
-                    + "8.Traslado de profesor a otro departamento\n"
-                    + "9.Trasladar de sección a un empleado\n"
-                    + "10. Imprimir la información de todos los "
-                    + "objetos que se hayan creado en el"
-                    +"programa hasta el momento.\n"
-                    + "11.Salir\n");
-            opc=leer.nextInt();
-            switch(opc){
+            System.out.println("\n      Menu        \n"
+                    + "1.Agregar persona externa a la Universidad\n"
+                    + "2.Agregar Estudiante\n"
+                    + "3.Agregar Docente\n"
+                    + "4.Agregar Empleado\n"
+                    + "5.Cambiar Estado Civil de Persona\n"
+                    + "6.Asignar nuevo despacho a Empleado\n"
+                    + "7.Matricular Estudiante en Nuevo Curso\n"
+                    + "8.Trasladar Docente a Nuevo Departamento\n"
+                    + "9.Trasladar de Sección a Personal de Servicios\n"
+                    + "10.Imprimir Contenido registrado hasta el momento\n"
+                    + "11.Salir");
+            opc1=leer.nextInt();
+            switch(opc1){
             case 1:
                 System.out.println("Ingrese nombre");
                 nom=leer.next();
-                System.out.println("Ingrese identificación");
+                System.out.println("Ingrese Estado Civil");
+                estCiv=leer.next();
+                System.out.println("Ingrese # de identificación");
                 id=leer.nextInt();
-                
+                per1=new Persona(nom,estCiv,id);
+                System.out.println("Persona externa Registrada");
                 break;
             case 2:
-                
+                System.out.println("Ingrese nombre");
+                nom=leer.next();
+                System.out.println("Ingrese Estado Civil");
+                estCiv=leer.next();
+                System.out.println("Ingrese # de identificación");
+                id=leer.nextInt();
+                est1=new Estudiante(nom,estCiv,id);
+                System.out.println("Ingrese curso");
+                cur=leer.next();
+                est1.setCurso(cur);
+                System.out.println("Estudiante Registrado");
                 break;
             case 3:
-                
+                System.out.println("Ingrese nombre");
+                nom=leer.next();
+                System.out.println("Ingrese Estado Civil");
+                estCiv=leer.next();
+                System.out.println("Ingrese # de identificación");
+                id=leer.nextInt();
+                doc1=new Docente(nom, estCiv, id);
+                System.out.println("Ingrese Departamento:\n"
+                        + "1.Lenguajes\n"
+                        + "2.Matemáticas\n"
+                        + "3.Arquitectura\n"
+                        + "4.Ingeniería\n"
+                        + "5.Derecho\n"
+                        + "6.Ciencias\n"
+                        + "7.Salud");
+                do
+                    opc2=leer.nextInt();
+                while(opc2<1||opc2>7);
+                doc1.setDepartamento(opc2);
                 break;
             case 4:
-                
+                System.out.println("Ingrese nombre");
+                nom=leer.next();
+                System.out.println("Ingrese Estado Civil");
+                estCiv=leer.next();
+                System.out.println("Ingrese # de identificación");
+                id=leer.nextInt();
+                System.out.println("Ingrese # de despacho");
+                desp=leer.nextInt();
+                do{
+                    System.out.println("1.Personal de Servicios\n"
+                        + "2.Otro");
+                    opc2=leer.nextInt();
+                    if(opc2==1){
+                        pserv1=new PersonalServicios(nom, estCiv, id);
+                        pserv1.setDespacho(desp);
+                        System.out.println("Ingrese sección:\n"
+                                + "1.Biblioteca\n"
+                                + "2.Decanatura\n"
+                                + "3.Secretaría\n"
+                                + "4.Registro\n"
+                                + "5.Cafetería");
+                        do
+                            opc3=leer.nextInt();
+                        while(opc3<1||opc3>5);
+                        pserv1.setSeccion(opc3);
+                    }
+                }while(opc2!=1&&opc2!=2);
                 break;
             case 5:
+                System.out.println("Usuario a cambiar Estado Civil:\n"
+                        + "1.Persona externa\n"
+                        + "2.Estudiante\n"
+                        + "3.Docente\n"
+                        + "4.Personal de Servicios\n"
+                        + "5.Otro Empleado");
+                do
+                    opc2=leer.nextInt();
+                while(opc2<1||opc2>5);
+                System.out.println("Ingrese nuevo Estado Civil");
+                estCiv=leer.next();
+                switch(opc2){
+                    case 1:
+                        per1.setEstadoCivil(estCiv);
+                        break;
+                    case 2:
+                        est1.setEstadoCivil(estCiv);
+                        break;
+                    case 3:
+                        doc1.setEstadoCivil(estCiv);
+                        break;
+                    case 4:
+                        pserv1.setEstadoCivil(estCiv);
+                        break;
+                    case 5:
+                        emp1.setEstadoCivil(estCiv);
+                        break;
+                }
+                System.out.println("Modificación Ralizada");
                 break;
             case 6:
+                System.out.println("Ingrese tipo de Empleado:\n"
+                        + "1.Personal de Servicios\n"
+                        + "2.Otro Empleado");
+                do
+                    opc2=leer.nextInt();
+                while(opc2!=1&&opc2!=2);
+                System.out.println("Ingrese nuevo # de Despacho");
+                desp=leer.nextInt();
+                if(opc2==1)
+                    pserv1.setDespacho(desp);
+                else
+                    emp1.setDespacho(desp);
+                System.out.println("Modificación Realizada");
                 break;
             case 7:
+                System.out.println("Ingrese nuevo curso a matricular");
+                cur=leer.next();
+                est1.setCurso(cur);
                 break;
             case 8:
+                System.out.println("Ingrese nuevo Departamento:\n"
+                        + "1.Lenguajes\n"
+                        + "2.Matemáticas\n"
+                        + "3.Arquitectura\n"
+                        + "4.Ingeniería\n"
+                        + "5.Derecho\n"
+                        + "6.Ciencias\n"
+                        + "7.Salud");
+                do
+                    opc2=leer.nextInt();
+                while(opc2<1||opc2>7);
+                doc1.setDepartamento(opc2);
+                System.out.println("Modificación Realizada");
                 break;
             case 9:
+                System.out.println("Ingrese sección:\n"
+                            + "1.Biblioteca\n"
+                            + "2.Decanatura\n"
+                            + "3.Secretaría\n"
+                            + "4.Registro\n"
+                            + "5.Cafetería");
+                    do
+                        opc3=leer.nextInt();
+                    while(opc3<1||opc3>5);
+                    pserv1.setSeccion(opc3);
+                    System.out.println("Modificación Realizada");
                 break;
             case 10:
+                System.out.println("Persona Externa:");
+                if(per1==null)
+                    System.out.println("No hay nada.");
+                else
+                    System.out.println(per1.mostrar());
+                System.out.println("\nEstudiante:");
+                if(est1==null)
+                    System.out.println("No hay nada.");
+                else
+                    System.out.println(est1.mostrar());
+                System.out.println("\nDocente:");
+                if(doc1==null)
+                    System.out.println("No hay nada.");
+                else
+                    System.out.println(doc1.mostrar());
+                System.out.println("\nPersonal de Servicios:");
+                if(pserv1==null)
+                    System.out.println("No hay nada.");
+                else
+                    System.out.println(pserv1.mostrar());
+                System.out.println("\nOtro Empleado:");
+                if(emp1==null)
+                    System.out.println("No hay nada.");
+                else
+                    System.out.println(emp1.mostrar());
                 break;
             case 11:
                 System.out.println("Gracias");
                 break;
-        }
-        }while(opc!=11);
+            }
+        }while(opc1!=11);
     }    
 }
